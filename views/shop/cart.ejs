@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/product.css" />
+  </head>
+
+  <body>
+    <%- include('../layout/header.ejs') %>
+
+    <main>
+      <% if(cart.length>0){ %>
+      <ul>
+        <% cart.forEach(p=>{ %>
+        <li>
+          <%= p.title %> (Quentity: <%= p.quantity %> )
+          <form action="/cart-delete-item" method="post">
+            <input type="hidden" name="productId" value="<%= p._id %>" />
+            <button class="btn" type="submit">Delete</button>
+          </form>
+        </li>
+        <%}) %>
+      </ul>
+      <hr />
+      <div class="centered">
+        <form action="/create-order" method="POST">
+          <button type="submit" class="btn">Order Now!</button>
+        </form>
+      </div>
+      <% } else{ %>
+      <h1>Empty Cart.</h1>
+      <% } %>
+    </main>
+  </body>
+</html>
